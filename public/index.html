@@ -7,18 +7,35 @@
 <body>
 
 <div class="container">
+
+
     <div id="main">
+
+        <!-- we dont have to use a form tag -->
+        <!-- v-model connects field with data object -->
+        <form>
+            <input v-model='form.title' type='text' name='title' placeholder='title' />
+            <input v-model='form.description' type='text' name='description' placeholder='description' />
+            <input v-model='form.username' type='text' name='username' placeholder='username' />
+
+            <input type="file" accept = 'image/*'>
+            <button v-on:click='uploadFile'>upload</button>
+        </form>
+
         <h1>{{ heading }}</h1>
         <div class="img-box" v-for="image in images">
             <img :src="image.url" >
             <p>{{ image.title }}
         </div>
     </div>
+
+
 </div>
 
 
 
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
