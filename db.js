@@ -9,11 +9,20 @@ module.exports.getImages = () => {
     );
 };
 
-module.exports.saveFile = (url, title, desc, user) => {
+// !!!!!!!!!!!!!!! FIX NO DESC IN DB !!!!!!!!!!!!!!!!!!!!
+module.exports.saveFile = (url, title, user, desc) => {
     return db.query(`
-                    INSERT INTO images (url, title, description, username)
+                    INSERT INTO images (url, title, username, description)
                     VALUES ($1, $2, $3, $4)
                     RETURNING *
-                    `, [url || null, title, desc, user]
+                    `, [url || null, title || null, user || null, desc]
+    );
+};
+
+module.exports.getImageById = (id) => {
+    return db.query(`
+                    SELECT * FROM Images
+                    WHERE id = $1
+                    `, [id || null]
     );
 };

@@ -1,3 +1,7 @@
+body {
+    background: teal;
+}
+
 .container {
     display: flex;
     flex-direction: row;
@@ -7,15 +11,32 @@
 
 .img-box {
     display: inline-block;
-    border: 2px solid black;
+    border: 2px solid white;
     border-radius: 10px;
     margin: 10px;
     padding: 5px;
+    background: white;
+
 }
 
 .img-box p {
     font-family: 'Arial', sans-serif;
     font-weight: bold;
+}
+
+button,
+#button-file,
+.input {
+    border: 10px solid white;
+    border-radius: 20px;
+    padding: 1rem;
+    background: transparent;
+    color: white;
+}
+
+button,
+#button-file {
+    cursor: pointer;
 }
 
 img {
@@ -24,4 +45,21 @@ img {
     object-fit: cover;
     object-position: center;
     border-radius: 10px;
+}
+
+#modal{
+    background: black;
+    color: white;
+}
+
+#modal-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(100, 100, 100, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

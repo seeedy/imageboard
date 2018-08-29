@@ -59,9 +59,19 @@ app.post('/upload', uploader.single('file'), s3.upload, (req, res) => {
         })
         .catch(() => {
             res.status(500).json({
-                succes: false
+                success: false
             });
         });
 });
 
-// this.images.unshift
+// 2 routes to get image by imgId and comments by imgId
+
+app.get('/image/:id', (req, res) => {
+    console.log('getting img data for', req.params.id);
+    db.getImageById(req.params.id).then(response => {
+        console.log('succesfully got img data: ', response.rows[0]);
+        res.json(response.rows[0]);
+    }
+    );
+
+});
