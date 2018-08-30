@@ -11,7 +11,7 @@
 
     <div id="main">
 
-        <image-modal v-if="currentImage">
+        <image-modal v-if="currentImage" v-on:close="closeModal" v-bind:imageid="currentImage">
         </image-modal>
 
         <!-- we dont have to use a form tag -->
@@ -36,15 +36,46 @@
 </div>
 
     <script id="modal-template" type="text/template">
-        <div id="modal-overlay">
-            <div id="modal">
+        <div id="modal-overlay" v-on:click="closeModal">
+            <div v-on:click.stop id="modal">
                 <img v-bind:src="currentImageData.url"/>
                 <h2>{{ currentImageData.title }}</h2>
                 <p>{{ currentImageData.description }}</p>
                 <p>Uploaded by {{ currentImageData.username }} on {{ currentImageData.created_at }}</p>
+
+                <comments v-bind:imageid="imageid"></comments>
+                <!-- needs id -->
+
+
+            </div>
+
+
+        </div>
+
+
+    </script>
+
+    <script id="comments" type="text/template">
+        <div id="comment-box">
+            <div id="new-comment">
+                <h2>{{ heading }}</h2>
+
+                    <input type="text" name="comment" placeholder='comment' id="comment-text"/>
+                    <input type="text" name="username" placeholder='username' id="username-text" />
+                    <button v-on:click="postComment">post</button>
+
+            </div>
+
+            <div id="existing-comments">
+                <div class="single-comment" v-for="comment in allComments">
+                    <div></div>
+                    <p></p>
+                </div>
             </div>
         </div>
     </script>
+
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/js/vue.js"></script>

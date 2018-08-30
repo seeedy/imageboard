@@ -9,13 +9,12 @@ module.exports.getImages = () => {
     );
 };
 
-// !!!!!!!!!!!!!!! FIX NO DESC IN DB !!!!!!!!!!!!!!!!!!!!
-module.exports.saveFile = (url, title, user, desc) => {
+module.exports.saveFile = (url, user, title, desc) => {
     return db.query(`
-                    INSERT INTO images (url, title, username, description)
+                    INSERT INTO images (url, username, title, description)
                     VALUES ($1, $2, $3, $4)
                     RETURNING *
-                    `, [url || null, title || null, user || null, desc]
+                    `, [url || null, user || null, title || null, desc]
     );
 };
 
@@ -24,5 +23,24 @@ module.exports.getImageById = (id) => {
                     SELECT * FROM Images
                     WHERE id = $1
                     `, [id || null]
+    );
+};
+
+exports.saveComment = function(imageId, comment, username) {
+    console.log('inside saving comment');
+    return db.query(`
+                    INSERT INTO comments (image_id, comment, username)
+                    VALUES ($1, $2, $3)
+                    RETURNING *
+                    `, [imageId, comment, username]
+    );
+};
+
+exports.getComments = function(imageId) {
+    console.log('inside comments db query');
+    return db.query(`
+                    SELECT * FROM comments
+                    WHERE image_id = $1
+                    `, [imageId]
     );
 };
