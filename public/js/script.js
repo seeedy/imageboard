@@ -42,11 +42,11 @@
 
         mounted: function() {
             console.log('props in comments: ', this.imageid);
-            // var self = this;
-            // axios.get('/comments/' + self.imageid).then(function(response) {
-            //     self.allComments = response.data;
-            //     console.log('allComments on front end: ', self.allComments);
-            // });
+            var self = this;
+            axios.get('/comments/' + self.imageid).then(function(response) {
+                self.allComments = response.data;
+                console.log('allComments on front end: ', self.allComments);
+            });
         },
 
         methods: {
@@ -59,7 +59,7 @@
                 commentBody.imageId = this.imageid;
                 console.log('REQ: ', commentBody);
 
-                axios.post('/comments' ).then(function() {
+                axios.post('/comments', commentBody).then(function() {
                     console.log('comment succesfully posted');
                 });
             }

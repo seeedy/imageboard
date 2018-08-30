@@ -44,8 +44,6 @@
                 <p>Uploaded by {{ currentImageData.username }} on {{ currentImageData.created_at }}</p>
 
                 <comments v-bind:imageid="imageid"></comments>
-                <!-- needs id -->
-
 
             </div>
 
@@ -67,9 +65,9 @@
             </div>
 
             <div id="existing-comments">
-                <div class="single-comment" v-for="comment in allComments">
-                    <div></div>
-                    <p></p>
+                <div class="single-comment" v-for="eachComment in allComments">
+                    <h3>{{ eachComment.comment }}</h3>
+                    <p>posted by {{ eachComment.username }} on {{ eachComment.created_at }}</p>
                 </div>
             </div>
         </div>

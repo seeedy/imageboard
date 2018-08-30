@@ -85,7 +85,7 @@ app.get('/comments/:id', (req, res) => {
 
 app.post('/comments', (req, res) => {
     console.log('inserting comment to db for ', req.body);
-    // db.saveComment(req.params.id, req.body.comment, req.body.username).then(response => {
-    //     console.log(response);
-    // });
+    db.saveComment(req.body.imageId, req.body.comment, req.body.username).then(() => {
+        console.log('ok');
+    });
 });
