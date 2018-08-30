@@ -4,10 +4,19 @@ const db = spicedPg('postgres:postgres:postgres@localhost:5432/imageboard');
 module.exports.getImages = () => {
     return db.query(`
                     SELECT * FROM images
-                    ORDER BY id DESC
+                    ORDER BY id DESC LIMIT 3
                     `
     );
 };
+
+module.exports.getMoreImages = (id) => {
+    return db.query(`
+                    SELECT * FROM images
+                    WHERE id < $1
+                    ORDER BY id DESC LIMIT 3
+                    `, [id]
+    );
+}
 
 module.exports.saveFile = (url, user, title, desc) => {
     return db.query(`

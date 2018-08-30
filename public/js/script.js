@@ -52,15 +52,17 @@
         methods: {
             postComment: function(e) {
                 e.preventDefault();
-                // var comment = document.querySelector("#comment-text").value;
+                var self = this;
                 var commentBody = {};
                 commentBody.comment = document.querySelector("#comment-text").value;
                 commentBody.username = document.querySelector("#username-text").value;
                 commentBody.imageId = this.imageid;
                 console.log('REQ: ', commentBody);
 
-                axios.post('/comments', commentBody).then(function() {
-                    console.log('comment succesfully posted');
+                axios.post('/comments', commentBody).then(function(response) {
+                    console.log('adding new comment', response.data);
+                    self.allComments.push(response.data);
+
                 });
             }
         },
@@ -117,7 +119,17 @@
             closeModal: function() {
                 this.currentImage = null;
                 return;
+            },
+            getMoreImages: function() {
+                var lastImage = this.images[this.images.length - 1];
+                console.log(lastImage.id);
+                axios.get('/more/' + lastImage.id).then(function(response) {
+                    console.log(response);
+
+                    app.images = app.images.concat(response.data.rows);
+                });
             }
+
         }
 
     });

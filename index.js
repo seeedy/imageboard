@@ -43,6 +43,15 @@ app.get('/images', (req, res) => {
         .catch(err => console.log(err));
 });
 
+app.get('/more/:id', (req, res) => {
+    console.log('more req: ', req.params.id);
+    db.getMoreImages(req.params.id)
+        .then(response => {
+            res.json(response);
+        })
+        .catch(err => console.log(err));
+});
+
 // uploader is used as middleware to handle uploads on post route
 app.post('/upload', uploader.single('file'), s3.upload, (req, res) => {
     console.log('POST /upload in server', req.body);
@@ -85,7 +94,7 @@ app.get('/comments/:id', (req, res) => {
 
 app.post('/comments', (req, res) => {
     console.log('inserting comment to db for ', req.body);
-    db.saveComment(req.body.imageId, req.body.comment, req.body.username).then(() => {
-        console.log('ok');
+    db.saveComment(req.body.imageId, req.body.comment, req.body.username).then((response) => {
+        res.json(response.rows[0]);
     });
 });

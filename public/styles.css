@@ -24,6 +24,8 @@ body {
     font-weight: bold;
 }
 
+
+
 button,
 #button-file,
 .input {
@@ -39,17 +41,33 @@ button,
     cursor: pointer;
 }
 
-img {
-    width: 480px;
-    height: 360px;
+.main-img {
+    width: 360px;
+    height: 270px;
     object-fit: cover;
     object-position: center;
     border-radius: 10px;
 }
 
+#more {
+    display: block;
+}
+
+#modal-img {
+    width: 480px;
+    height: 360px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
 #modal{
     background: black;
     color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
 }
 
 #modal-overlay {
@@ -58,7 +76,7 @@ img {
     top: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(100, 100, 100, 0.5);
+    background-color: rgba(100, 100, 100, 0.6);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,4 +87,10 @@ img {
     position: relative;
     background: black;
     color: white;
+
+}
+
+#existing-comments {
+    height: 300px;
+    overflow-y: scroll;
 }

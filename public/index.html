@@ -27,18 +27,21 @@
 
         <h1>{{ heading }}</h1>
         <div class="img-box" v-for="image in images" v-on:click="clickImage(image.id)" >
-            <img :src="image.url" >
+            <img class="main-img" :src="image.url" >
             <p>{{ image.title }}
         </div>
 
+        <button id="more" v-on:click="getMoreImages">more</button>
     </div>
+
+
 
 </div>
 
     <script id="modal-template" type="text/template">
         <div id="modal-overlay" v-on:click="closeModal">
             <div v-on:click.stop id="modal">
-                <img v-bind:src="currentImageData.url"/>
+                <img id="modal-img" v-bind:src="currentImageData.url"/>
                 <h2>{{ currentImageData.title }}</h2>
                 <p>{{ currentImageData.description }}</p>
                 <p>Uploaded by {{ currentImageData.username }} on {{ currentImageData.created_at }}</p>
@@ -60,7 +63,7 @@
 
                     <input type="text" name="comment" placeholder='comment' id="comment-text"/>
                     <input type="text" name="username" placeholder='username' id="username-text" />
-                    <button v-on:click="postComment">post</button>
+                    <button v-on:click="postComment">submit</button>
 
             </div>
 
