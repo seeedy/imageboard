@@ -36,7 +36,10 @@ app.listen(8080, () => console.log('listening...'));
 // **************** ROUTES ************************************
 
 app.get('/images', (req, res) => {
-    db.getImages()
+    Promise.all([
+        db.getImages(),
+        db.getLastImageId(),
+    ])
         .then(response => {
             res.json(response);
         })
@@ -45,8 +48,12 @@ app.get('/images', (req, res) => {
 
 app.get('/more/:id', (req, res) => {
     console.log('more req: ', req.params.id);
-    db.getMoreImages(req.params.id)
+    Promise.all([
+        db.getMoreImages(req.params.id),
+        db.getLastImageId(),
+    ])
         .then(response => {
+            console.log(response);
             res.json(response);
         })
         .catch(err => console.log(err));

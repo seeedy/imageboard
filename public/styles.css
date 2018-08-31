@@ -6,17 +6,23 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     width: 100%;
 }
 
 .img-box {
     display: inline-block;
-    border: 2px solid white;
     border-radius: 10px;
     margin: 10px;
     padding: 5px;
     background: white;
 
+}
+
+.img-box:hover {
+    background-color: orange;
+    transform: scale(1.02);
+    transition: all 0.1s ease-out;
 }
 
 .img-box p {

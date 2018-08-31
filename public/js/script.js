@@ -53,10 +53,12 @@
             postComment: function(e) {
                 e.preventDefault();
                 var self = this;
-                var commentBody = {};
-                commentBody.comment = document.querySelector("#comment-text").value;
-                commentBody.username = document.querySelector("#username-text").value;
-                commentBody.imageId = this.imageid;
+                var commentBody = {
+                    comment: document.querySelector("#comment-text").value,
+                    username: document.querySelector("#username-text").value,
+                    imageId: this.imageid
+                };
+
                 console.log('REQ: ', commentBody);
 
                 axios.post('/comments', commentBody).then(function(response) {
@@ -82,12 +84,18 @@
                 description: ''
             },
             currentImage: null,
+            moreImagesToLoad: true,
+
         },
 
         // mounted function runs after html but before JS loads
         mounted: function() {
             axios.get('/images').then(function(response) {
-                app.images = response.data.rows;
+                app.images = response.data[0].rows;
+                var lastImageDb = response.data[1].rows[0].id;
+                var lastImageShown = app.images[app.images.length - 1].id;
+                console.log('last image in DB: ', lastImageDb);
+                app.compareIds(lastImageShown, lastImageDb);
             });
         },
 
@@ -121,23 +129,26 @@
                 return;
             },
             getMoreImages: function() {
-                var lastImage = this.images[this.images.length - 1];
-                console.log(lastImage.id);
-                axios.get('/more/' + lastImage.id).then(function(response) {
-                    console.log(response);
+                var lastImageShown = this.images[this.images.length - 1].id;
+                axios.get('/more/' + lastImageShown)
+                    .then(function(response) {
+                        app.images = app.images.concat(response.data[0].rows);
+                        var lastImageDb = response.data[1].rows[0].id;
+                        lastImageShown = app.images[app.images.length - 1].id;
+                        console.log('last image in DB: ', lastImageDb);
+                        app.compareIds(lastImageShown, lastImageDb);
+                    });
+            },
+            compareIds: function(lastImageShown, lastImageDb) {
+                console.log('comparing Ids: ', lastImageShown, lastImageDb);
 
-                    app.images = app.images.concat(response.data.rows);
-                });
+                if (lastImageShown == lastImageDb) {
+                    app.moreImagesToLoad = false;
+                    console.log(app.moreImagesToLoad);
+                }
             }
 
         }
 
     });
 })();
-
-// style upload field (replace by button)
-$('.input-file').before('<input type="button" id="button-file" value="Choose Image" />');
-$('.input-file').hide();
-$('body').on('click', '#button-file', function() {
-    $('.input-file').trigger('click');
-});

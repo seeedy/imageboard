@@ -31,7 +31,7 @@
             <p>{{ image.title }}
         </div>
 
-        <button id="more" v-on:click="getMoreImages">more</button>
+        <button v-if="moreImagesToLoad" id="more" v-on:click="getMoreImages">more</button>
     </div>
 
 
@@ -80,6 +80,7 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/js/vue.js"></script>
+    <script src="/js/styles.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
 </body>

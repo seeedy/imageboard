@@ -4,7 +4,7 @@ const db = spicedPg('postgres:postgres:postgres@localhost:5432/imageboard');
 module.exports.getImages = () => {
     return db.query(`
                     SELECT * FROM images
-                    ORDER BY id DESC LIMIT 3
+                    ORDER BY id DESC LIMIT 6
                     `
     );
 };
@@ -16,7 +16,16 @@ module.exports.getMoreImages = (id) => {
                     ORDER BY id DESC LIMIT 3
                     `, [id]
     );
-}
+};
+
+module.exports.getLastImageId = () => {
+    return db.query(`
+                    SELECT id FROM images
+                    ORDER BY id ASC
+                    LIMIT 1
+                    `
+    );
+};
 
 module.exports.saveFile = (url, user, title, desc) => {
     return db.query(`
