@@ -45,7 +45,6 @@ module.exports.getImageById = (id) => {
 };
 
 exports.saveComment = function(imageId, comment, username) {
-    console.log('inside saving comment');
     return db.query(`
                     INSERT INTO comments (image_id, comment, username)
                     VALUES ($1, $2, $3)
@@ -55,7 +54,6 @@ exports.saveComment = function(imageId, comment, username) {
 };
 
 exports.getComments = function(imageId) {
-    console.log('inside comments db query');
     return db.query(`
                     SELECT * FROM comments
                     WHERE image_id = $1

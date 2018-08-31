@@ -3,6 +3,7 @@
 <head>
     <title>My app</title>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
 
@@ -14,7 +15,9 @@
         <image-modal v-if="currentImage" v-on:close="closeModal" v-bind:imageid="currentImage">
         </image-modal>
 
-        <!-- we dont have to use a form tag -->
+
+        <div id="upload-pic"><i class="fas fa-cloud-upload-alt"></i></div>
+
         <!-- v-model connects field with data object -->
         <form>
             <input class="input" v-model='form.title' type='text' name='title' placeholder='title' />
@@ -26,10 +29,10 @@
         </form>
 
         <h1>{{ heading }}</h1>
-        <div class="img-box" v-for="image in images" v-on:click="clickImage(image.id)" >
+        <a v-bind:href="'#'+image.id" class="img-box" v-for="image in images">
             <img class="main-img" :src="image.url" >
-            <p>{{ image.title }}
-        </div>
+            <p>{{ image.title }}</p>
+        </a>
 
         <button v-if="moreImagesToLoad" id="more" v-on:click="getMoreImages">more</button>
     </div>

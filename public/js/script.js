@@ -1,5 +1,9 @@
 (function() {
 
+    window.addEventListener('hashchange', function() {
+        app.currentImage = location.hash.slice(1);
+    });
+
     Vue.component('image-modal', {
         props: ['imageid'],
 
@@ -10,10 +14,12 @@
         },
 
         mounted: function() {
+            console.log('running mounted');
             // we need self=this because of nested non-arrow functions
             var self = this;
-            axios.get('/image/' + app.currentImage).then(function(response) {
+            axios.get('/image/' + this.imageid).then(function(response) {
                 self.currentImageData = response.data;
+                console.log(self.currentImageData);
             });
         },
 
@@ -41,11 +47,9 @@
         },
 
         mounted: function() {
-            console.log('props in comments: ', this.imageid);
             var self = this;
             axios.get('/comments/' + self.imageid).then(function(response) {
                 self.allComments = response.data;
-                console.log('allComments on front end: ', self.allComments);
             });
         },
 
@@ -83,7 +87,7 @@
                 username: '',
                 description: ''
             },
-            currentImage: null,
+            currentImage: location.hash.length > 1 && location.hash.slice(1),
             moreImagesToLoad: true,
 
         },
@@ -94,7 +98,6 @@
                 app.images = response.data[0].rows;
                 var lastImageDb = response.data[1].rows[0].id;
                 var lastImageShown = app.images[app.images.length - 1].id;
-                console.log('last image in DB: ', lastImageDb);
                 app.compareIds(lastImageShown, lastImageDb);
             });
         },
@@ -121,9 +124,9 @@
                     console.log(err);
                 });
             },
-            clickImage: function(id) {
-                this.currentImage = id;
-            },
+            // clickImage: function(id) {
+            //     this.currentImage = id;
+            // },
             closeModal: function() {
                 this.currentImage = null;
                 return;
@@ -135,16 +138,12 @@
                         app.images = app.images.concat(response.data[0].rows);
                         var lastImageDb = response.data[1].rows[0].id;
                         lastImageShown = app.images[app.images.length - 1].id;
-                        console.log('last image in DB: ', lastImageDb);
                         app.compareIds(lastImageShown, lastImageDb);
                     });
             },
             compareIds: function(lastImageShown, lastImageDb) {
-                console.log('comparing Ids: ', lastImageShown, lastImageDb);
-
                 if (lastImageShown == lastImageDb) {
                     app.moreImagesToLoad = false;
-                    console.log(app.moreImagesToLoad);
                 }
             }
 

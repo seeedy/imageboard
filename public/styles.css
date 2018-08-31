@@ -27,7 +27,9 @@ body {
 
 .img-box p {
     font-family: 'Arial', sans-serif;
+    text-decoration: none;
     font-weight: bold;
+    color: black;
 }
 
 

@@ -81,11 +81,10 @@ app.post('/upload', uploader.single('file'), s3.upload, (req, res) => {
         });
 });
 
-// 2 routes to get image by imgId and comments by imgId
 
 app.get('/image/:id', (req, res) => {
-    // console.log('getting img data for', req.params.id);
     db.getImageById(req.params.id).then(response => {
+        console.log('getting image data for: ', req.params.id);
         res.json(response.rows[0]);
     }
     );
@@ -93,14 +92,12 @@ app.get('/image/:id', (req, res) => {
 
 
 app.get('/comments/:id', (req, res) => {
-    console.log('getting comments data for ', req.params.id);
     db.getComments(req.params.id).then(response => {
         res.json(response.rows);
     });
 });
 
 app.post('/comments', (req, res) => {
-    console.log('inserting comment to db for ', req.body);
     db.saveComment(req.body.imageId, req.body.comment, req.body.username).then((response) => {
         res.json(response.rows[0]);
     });
