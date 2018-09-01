@@ -1,13 +1,102 @@
 body {
-    background: teal;
+    background: dimgray;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Fira Sans', sans-serif;
+    overflow-x: hidden;
 }
 
+header {
+    height: 100px;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    background: darkslateblue;
+    z-index: 100;
+    padding-left: 6%;
+    color: white;
+}
+
+.fa-plus-square {
+    font-size: 32px;
+    padding-right: 0.25em;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.header-h1 {
+    font-weight: bold;
+}
+
+.upload-image {
+    background: limegreen;
+    margin-left: 40px;
+    margin-right: 20px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    padding: 0.25em 0.5em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-field {
+    display: flex;
+    justify-content: center;
+    transform: translateY(-1000%);
+}
+
+.form-field.displayed {
+    transform: translateY(0);
+}
+
+
+.input {
+    padding: 0.33em;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em
+}
+
+.fa-file-upload,
+.fa-file-image {
+    font-size: 32px;
+}
+
+.button-choose-file,
+.upload-file {
+    background: limegreen;
+    height: 45px;
+    width: 45px;
+    padding: 0.25em 0.5em;
+    border-radius: 5px;
+    border: none;
+    color: inherit;
+    margin-left: 10px;
+}
+
+
+
 .container {
+    position: relative;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
+}
+
+.wrapper {
+    position: relative;
+    top: 150px;
+    width: 100%;
+    padding: 0 6% 12%;
+    color: white;
 }
 
 .img-box {
@@ -21,12 +110,11 @@ body {
 
 .img-box:hover {
     background-color: orange;
-    transform: scale(1.02);
+    transform: translateY(-2%);
     transition: all 0.1s ease-out;
 }
 
 .img-box p {
-    font-family: 'Arial', sans-serif;
     text-decoration: none;
     font-weight: bold;
     color: black;
@@ -34,7 +122,7 @@ body {
 
 
 
-button,
+/* button,
 #button-file,
 .input {
     border: 10px solid white;
@@ -42,7 +130,7 @@ button,
     padding: 1rem;
     background: transparent;
     color: white;
-}
+} */
 
 button,
 #button-file {
@@ -76,6 +164,8 @@ button,
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 10px;
+    z-index: 1000;
+
 }
 
 #modal-overlay {
@@ -89,6 +179,7 @@ button,
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 #comment-box {

@@ -1,40 +1,66 @@
 <!doctype html>
 <html>
 <head>
-    <title>My app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Got pics?</title>
     <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
+
+
+
 
 <div class="container">
 
 
     <div id="main">
 
+        <header>
+            <div class="header-content">
+                <div class="header-h1"><h1>Got pics?</h1></div>
+                <div class="upload-image">
+                    <i class="fas fa-plus-square"></i>
+                    <span>upload new image</span>
+                </div>
+                <div class="form-field">
+                <!-- v-model connects field with data object -->
+                    <form>
+                        <input class="input" v-model='form.title' type='text' name='title' placeholder='title' />
+                        <input class="input" v-model='form.description' type='text' name='description' placeholder='description' />
+                        <input class="input" v-model='form.username' type='text' name='username' placeholder='username' />
+
+                        <input class="choose-file" type="file" accept = 'image/*'>
+                        <button class="upload-file" v-on:click='uploadFile'>
+                            <i class="fas fa-file-upload"></i>
+
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
+        </header>
+
+
+
         <image-modal v-if="currentImage" v-on:close="closeModal" v-bind:imageid="currentImage">
         </image-modal>
 
+        <div class="wrapper">
+            <h2>{{ heading }}</h2>
+            <a v-bind:href="'#'+image.id" class="img-box" v-for="image in images">
+                <img class="main-img" :src="image.url" >
+                <p>{{ image.title }}</p>
+            </a>
 
-        <div id="upload-pic"><i class="fas fa-cloud-upload-alt"></i></div>
+            <button v-if="moreImagesToLoad" id="more" v-on:click="getMoreImages">more</button>
+        </div>
 
-        <!-- v-model connects field with data object -->
-        <form>
-            <input class="input" v-model='form.title' type='text' name='title' placeholder='title' />
-            <input class="input" v-model='form.description' type='text' name='description' placeholder='description' />
-            <input class="input" v-model='form.username' type='text' name='username' placeholder='username' />
 
-            <input class="input-file" type="file" accept = 'image/*'>
-            <button v-on:click='uploadFile'>upload</button>
-        </form>
 
-        <h1>{{ heading }}</h1>
-        <a v-bind:href="'#'+image.id" class="img-box" v-for="image in images">
-            <img class="main-img" :src="image.url" >
-            <p>{{ image.title }}</p>
-        </a>
-
-        <button v-if="moreImagesToLoad" id="more" v-on:click="getMoreImages">more</button>
     </div>
 
 
@@ -83,8 +109,9 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/js/vue.js"></script>
-    <script src="/js/styles.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
+    <script src="/js/styles.js"></script>
+
 </body>
 </html>

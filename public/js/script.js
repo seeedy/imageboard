@@ -14,7 +14,6 @@
         },
 
         mounted: function() {
-            console.log('running mounted');
             // we need self=this because of nested non-arrow functions
             var self = this;
             axios.get('/image/' + this.imageid).then(function(response) {
@@ -116,19 +115,14 @@
                 // console.log(formData);
 
                 axios.post('/upload', formData).then(function(response) {
-                    console.log('response in POST /upload: ', response.data);
-                    // add picture data to app.images so vue renders it
-                    // without reloading page
                     app.images.unshift(response.data);
                 }).catch(function(err) {
                     console.log(err);
                 });
             },
-            // clickImage: function(id) {
-            //     this.currentImage = id;
-            // },
             closeModal: function() {
                 this.currentImage = null;
+                location.hash = '';
                 return;
             },
             getMoreImages: function() {
