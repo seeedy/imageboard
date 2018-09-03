@@ -105,6 +105,7 @@
             uploadFile: function(e) {
                 e.preventDefault();
                 var file = $('input[type="file"]').get(0).files[0];
+                console.log(file);
                 // form data is used for dealing with files via ajax
                 var formData = new FormData();
                 formData.append('file', file);

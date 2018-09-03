@@ -56,7 +56,7 @@
                 <p>{{ image.title }}</p>
             </a>
 
-            <button v-if="moreImagesToLoad" id="more" v-on:click="getMoreImages">more</button>
+            <button v-if="moreImagesToLoad" id="more-button" v-on:click="getMoreImages">more</button>
         </div>
 
 
@@ -74,9 +74,9 @@
                 <h2>{{ currentImageData.title }}</h2>
                 <p>{{ currentImageData.description }}</p>
                 <p>Uploaded by {{ currentImageData.username }} on {{ currentImageData.created_at }}</p>
-
+                <div>
                 <comments v-bind:imageid="imageid"></comments>
-
+                </div>
             </div>
 
 
